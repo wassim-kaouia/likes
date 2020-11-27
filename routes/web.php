@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'PostController@index');
-Route::get('/like', 'PostController@like')->name('post.likes');
+Route::post('/like', 'PostController@like')->name('posts.like');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

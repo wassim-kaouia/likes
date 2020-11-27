@@ -5,17 +5,12 @@
    @foreach ($posts as $post)
        <p>{{ $post->content }}</p>
        <br>
-
        <div class="d-flex align-items" id="form-js">
-        <div id="count-js">{{ $post->likes()->count() }} Like(s)</div>
-
-        <form action="{{ route('post.likes') }}">
- 
+        <form action="{{ route('posts.like') }}" id="form-js"> 
+          <div id="count-js">{{ $post->likes()->count() }} Like(s)</div>
           <input type="hidden" id="post-id-js" value="{{ $post->id }}">
           <button type="submit" class="btn btn-link btn-sm">j'aime</button>
         </form>
        </div>
-       
-       
    @endforeach
 @endsection

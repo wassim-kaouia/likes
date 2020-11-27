@@ -49880,12 +49880,31 @@ __webpack_require__.r(__webpack_exports__);
 var forms = document.querySelectorAll('#form-js'); // console.log(forms);
 
 forms.forEach(function (form) {
-  return function () {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      console.log('formulaire clicke');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var url = this.getAttribute('action');
+    var token = document.querySelector('meta[name = "csrf-token"]').content;
+    var postId = this.querySelector('#post-id-js').value;
+    var count = this.querySelector('#count-js'); // console.log(count);
+
+    fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': token
+      },
+      method: 'post',
+      body: JSON.stringify({
+        id: postId
+      })
+    }).then(function (response) {
+      response.json().then(function (data) {
+        count.innerHTML = data.count + ' like(s)';
+        console.log(data);
+      });
+    })["catch"](function (error) {
+      console.log(error);
     });
-  };
+  });
 });
 
 /***/ }),
